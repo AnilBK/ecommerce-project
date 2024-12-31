@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Renderer from '../Renderer';
 import './Viewer.css';
+import Renderer from '../Renderer';
+import DiaryRenderer from '../Diary';
 
 function Viewer() {
     const [fontFamily, setFontFamily] = useState('Arial');
@@ -20,6 +21,7 @@ function Viewer() {
 
     return (
         <div>
+            <h1>Design a Mug</h1>
             <div className="horizontal-container">
                 <div>
                     <h1>Text Style</h1>
@@ -60,6 +62,10 @@ function Viewer() {
                 setTextPosition={setTextPosition}
             />
             <button className="add-gift-button" onClick={displayGiftData}>Add Gift !!</button>
+            
+            <h1>Design a Notebook</h1>
+
+            <DiaryRenderer />
         </div>
     );
 }
