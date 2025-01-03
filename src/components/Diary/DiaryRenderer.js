@@ -1,13 +1,21 @@
-import React, { useState,  useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import Diary1 from "../../assets/images/diary.png"
 import Diary2 from "../../assets/images/diary2.png"
 import Diary3 from "../../assets/images/diary3.png"
 
+import './diary.css';
+
 function DiaryRenderer() {
     const canvasRef = useRef(null);
-
     const [diaryStyle, setDiaryStyle] = useState('diary_style_1');
+    const [diaryText, setDiaryText] = useState('');
+    
+    function displayDiaryData() {
+        console.log('Diary Data');
+        console.log('Diary Style: ', diaryStyle);
+        console.log('Diary Text: ', diaryText);
+    }
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -24,25 +32,39 @@ function DiaryRenderer() {
         const drawCanvas = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0, 400, 400);
+
+            ctx.font = '30px Arial';
+            ctx.fillText(diaryText, 125, 200);
         };
 
         img.onload = drawCanvas;
         drawCanvas();
-    }, [diaryStyle]);
+    }, [diaryStyle, diaryText]);
 
     return (
         <div>
-            <h1>Style</h1>
-            <select onChange={(e) => {setDiaryStyle(e.target.value)}}>
-                <option value="diary_style_1">Diary 1</option>
-                <option value="diary_style_2">Diary 2</option>
-                <option value="diary_style_3">Diary 3</option>
-            </select>
+            <div className="horizontal-container-diary">
+                <div>
+                    <h1>Style</h1>
+                    <select onChange={(e) => { setDiaryStyle(e.target.value) }}>
+                        <option value="diary_style_1">Diary 1</option>
+                        <option value="diary_style_2">Diary 2</option>
+                        <option value="diary_style_3">Diary 3</option>
+                    </select>
+                </div>
+                <div>
+                    <h1>Text to print</h1>
+                    <textarea
+                        placeholder="Enter text" value={diaryText} onChange={(e) => setDiaryText(e.target.value)}
+                    />
+                </div>
+            </div>
 
             <canvas
                 ref={canvasRef}
                 style={{ border: '1px solid black', display: 'block', margin: '20px auto' }}
             />
+            <button className="add-gift-button-diary" onClick={displayDiaryData}>Add Gift !!</button>
         </div>
     );
 }
