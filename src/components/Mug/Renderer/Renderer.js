@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from 'react';
-import mug from '../../assets/images/mug.jpg';
+import mug from '../../../assets/images/mug.jpg';
 
-function Renderer({
+function MugRenderer({
     fontFamily,
     textStyle,
     canvasText,
@@ -96,4 +96,4 @@ function Renderer({
     );
 }
 
-export default Renderer;
+export default MugRenderer;

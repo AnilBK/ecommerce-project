@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import './Viewer.css';
-import Renderer from '../Renderer';
-import DiaryRenderer from '../Diary';
+import MugRenderer from '../Renderer';
 
-function Viewer() {
+function MugViewer() {
     const [fontFamily, setFontFamily] = useState('Arial');
     const [textStyle, setTextStyle] = useState('fill-text');
     const [canvasText, setCanvasText] = useState('Hello, Canvas!');
@@ -21,7 +20,6 @@ function Viewer() {
 
     return (
         <div>
-            <h1>Design a Mug</h1>
             <div className="horizontal-container">
                 <div>
                     <h1>Text Style</h1>
@@ -53,7 +51,7 @@ function Viewer() {
                     />
                 </div>
             </div>
-            <Renderer
+            <MugRenderer
                 fontFamily={fontFamily}
                 textStyle={textStyle}
                 canvasText={canvasText}
@@ -62,12 +60,8 @@ function Viewer() {
                 setTextPosition={setTextPosition}
             />
             <button className="add-gift-button" onClick={displayGiftData}>Add Gift !!</button>
-            
-            <h1>Design a Notebook</h1>
-
-            <DiaryRenderer />
         </div>
     );
 }
 
-export default Viewer;
+export default MugViewer;
