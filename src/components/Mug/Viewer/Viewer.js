@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Viewer.css';
-import MugRenderer from '../Renderer';
+import MugRendererWithEditor from '../Mug2/MugRendererWithEditor';
 
 function MugViewer() {
     const [fontFamily, setFontFamily] = useState('Arial');
@@ -51,7 +51,7 @@ function MugViewer() {
                     />
                 </div>
             </div>
-            <MugRenderer
+            <MugRendererWithEditor
                 fontFamily={fontFamily}
                 textStyle={textStyle}
                 canvasText={canvasText}
