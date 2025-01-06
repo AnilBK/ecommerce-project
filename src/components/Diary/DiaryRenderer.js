@@ -34,7 +34,14 @@ function DiaryRenderer() {
             ctx.drawImage(img, 0, 0, 400, 400);
 
             ctx.font = '30px Arial';
-            ctx.fillText(diaryText, 125, 200);
+
+            const textPosition = { x: 140, y: 140 };
+
+            const lines = diaryText.split('\n');
+            lines.forEach((line, index) => {
+                const y = textPosition.y + index * 30;
+                ctx.fillText(line, textPosition.x, y);
+            });
         };
 
         img.onload = drawCanvas;
