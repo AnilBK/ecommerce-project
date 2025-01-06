@@ -4,13 +4,15 @@ import Diary1 from "../../assets/images/diary.png"
 import Diary2 from "../../assets/images/diary2.png"
 import Diary3 from "../../assets/images/diary3.png"
 
+import AddGiftButton from "../AddGiftButton"
+
 import './diary.css';
 
 function DiaryRenderer() {
     const canvasRef = useRef(null);
     const [diaryStyle, setDiaryStyle] = useState('diary_style_1');
     const [diaryText, setDiaryText] = useState('');
-    
+
     function displayDiaryData() {
         console.log('Diary Data');
         console.log('Diary Style: ', diaryStyle);
@@ -71,7 +73,8 @@ function DiaryRenderer() {
                 ref={canvasRef}
                 style={{ border: '1px solid black', display: 'block', margin: '20px auto' }}
             />
-            <button className="add-gift-button-diary" onClick={displayDiaryData}>Add Gift !!</button>
+
+            <AddGiftButton onGiftAdd={displayDiaryData} />
         </div>
     );
 }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import MugRendererWithEditor from './MugRendererWithEditor';
+import AddGiftButton from '../AddGiftButton';
+
 import './MugItem.css';
 
 function MugItem() {
@@ -59,7 +61,7 @@ function MugItem() {
                 textPosition={textPosition}
                 setTextPosition={setTextPosition}
             />
-            <button className="add-gift-button" onClick={displayGiftData}>Add Gift !!</button>
+            <AddGiftButton onGiftAdd={displayGiftData} />
         </div>
     );
 }
