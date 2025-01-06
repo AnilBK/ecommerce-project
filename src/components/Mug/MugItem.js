@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './Viewer.css';
-import MugRendererWithEditor from '../Mug2/MugRendererWithEditor';
+import MugRendererWithEditor from './MugRendererWithEditor';
+import './MugItem.css';
 
-function MugViewer() {
+function MugItem() {
     const [fontFamily, setFontFamily] = useState('Arial');
     const [textStyle, setTextStyle] = useState('fill-text');
     const [canvasText, setCanvasText] = useState('Hello, Canvas!');
@@ -64,4 +64,4 @@ function MugViewer() {
     );
 }
 
-export default MugViewer;
+export default MugItem;

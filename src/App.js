@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 
-import MugViewer from './components/Mug/Viewer';
+import MugItem from './components/Mug';
 import DiaryRenderer from './components/Diary';
 
 function App() {
   return (
     <div className="App">
       <h1>Design a Mug</h1>
-      <MugViewer />
+      <MugItem />
 
       <h1>Design a Notebook</h1>
       <DiaryRenderer />

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import mug from '../../../assets/images/mug.jpg';
+import mug from '../../assets/images/mug.jpg';
 
 function MugCanvas({ fontFamily, textStyle, canvasText, fontColor, textPosition, onCanvasReady }) {
     const canvasRef = useRef(null);
