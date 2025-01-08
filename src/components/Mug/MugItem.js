@@ -4,6 +4,8 @@ import AddGiftButton from '../AddGiftButton';
 
 import './MugItem.css';
 
+import axios from 'axios';
+
 function MugItem() {
     const [fontFamily, setFontFamily] = useState('Arial');
     const [textStyle, setTextStyle] = useState('fill-text');
@@ -11,14 +13,35 @@ function MugItem() {
     const [fontColor, setFontColor] = useState('#000000');
     const [textPosition, setTextPosition] = useState({ x: 200, y: 200 });
 
-    function displayGiftData() {
-        console.log('Gift Data');
-        console.log('Font Family: ', fontFamily);
-        console.log('Text Style: ', textStyle);
-        console.log('Text Position: ', textPosition);
-        console.log('Canvas Text: ', canvasText);
-        console.log('Font Color: ', fontColor);
-    }
+    const [responseMessage, setResponseMessage] = useState('');
+
+    // function displayGiftData() {
+    //     console.log('Gift Data');
+    //     console.log('Font Family: ', fontFamily);
+    //     console.log('Text Style: ', textStyle);
+    //     console.log('Text Position: ', textPosition);
+    //     console.log('Canvas Text: ', canvasText);
+    //     console.log('Font Color: ', fontColor);
+    // }
+
+    const displayGiftData = async (e) => {
+        e.preventDefault();
+        try {
+            const giftData = {
+                fontFamily: fontFamily,
+                textStyle: textStyle,
+                textPosition: textPosition,
+                canvasText: canvasText,
+                fontColor: fontColor,
+            };
+
+            const response = await axios.post('http://localhost:5000/api/save-gift-data', giftData);
+            setResponseMessage(response.data.message);
+        } catch (err) {
+            console.error('Error saving gift data:', err);
+            setResponseMessage('Failed to save gift data');
+        }
+    };
 
     return (
         <div>
@@ -62,6 +85,7 @@ function MugItem() {
                 setTextPosition={setTextPosition}
             />
             <AddGiftButton onGiftAdd={displayGiftData} />
+            {responseMessage && <p>{responseMessage}</p>}
         </div>
     );
 }
