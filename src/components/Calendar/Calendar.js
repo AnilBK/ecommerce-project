@@ -1,4 +1,4 @@
-import React, {useRef, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 import calendar from "../../assets/images/Calendar.png"
 import CalendarDefaultImage from "../../assets/images/Calendar_default_image.png"
@@ -7,6 +7,7 @@ import './calendar.css';
 
 function Calendar() {
     const canvasRef = useRef(null);
+    const [userImage, setUserImage] = useState(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -18,7 +19,7 @@ function Calendar() {
         img.src = calendar;
 
         const default_image = new Image();
-        default_image.src = CalendarDefaultImage;
+        default_image.src = userImage || CalendarDefaultImage;
 
         const drawCanvas = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -32,14 +33,31 @@ function Calendar() {
 
         img.onload = drawCanvas;
         default_image.onload = drawCanvas;
-        
+
         drawCanvas();
-    }, []);
+    }, [userImage]);
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => setUserImage(reader.result);
+            reader.readAsDataURL(file);
+        }
+    };
 
     return (
         <div>
             <div className="horizontal-container-calendar">
-                <h2>Custom Image</h2>
+                <div>
+                    <h2>Custom Image</h2>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        style={{ marginLeft: '20px' }}
+                    />
+                </div>
             </div>
             <canvas ref={canvasRef} style={{ border: '1px solid black', display: 'block', margin: '20px auto' }}
             />
