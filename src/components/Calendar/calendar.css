@@ -1,0 +1,11 @@
+.horizontal-container-calendar {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+}
+
+.horizontal-container-calendar>* {
+    flex: 1;
+    margin: 10px 0;
+}
