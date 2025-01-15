@@ -3,11 +3,23 @@ import React, { useRef, useState, useEffect } from 'react';
 import calendar from "../../assets/images/Calendar.png"
 import CalendarDefaultImage from "../../assets/images/Calendar_default_image.png"
 
+import AddGiftButton from '../AddGiftButton';
+
 import './calendar.css';
 
 function Calendar() {
     const canvasRef = useRef(null);
     const [userImage, setUserImage] = useState(null);
+    const [uploadedFilePath, setUploadedFilePath] = useState(null);
+
+    function displayCalendarData() {
+        if (userImage) {
+            console.log("User has uploaded their own image.");
+            if (uploadedFilePath) {
+                console.log(`Uploaded file path: ${uploadedFilePath}`);
+            }
+        }
+    }
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -42,6 +54,7 @@ function Calendar() {
         if (file) {
             const reader = new FileReader();
             reader.onload = () => setUserImage(reader.result);
+            setUploadedFilePath(file.name);
             reader.readAsDataURL(file);
         }
     };
@@ -61,6 +74,7 @@ function Calendar() {
             </div>
             <canvas ref={canvasRef} style={{ border: '1px solid black', display: 'block', margin: '20px auto' }}
             />
+            <AddGiftButton onGiftAdd={displayCalendarData} />
         </div>
     );
 }
