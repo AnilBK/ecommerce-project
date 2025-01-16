@@ -4,6 +4,7 @@ import './App.css';
 import MugItem from './components/Mug';
 import DiaryRenderer from './components/Diary';
 import Calendar from './components/Calendar';
+import AddCustomProduct from './components/AdminSystem';
 
 function App() {
   return (
@@ -16,6 +17,11 @@ function App() {
 
       <h1>Design a Calendar</h1>
       <Calendar />
+
+      <h1>Admin System</h1>
+      <AddCustomProduct />
+      
+      <br></br>
     </div>
   );
 }
