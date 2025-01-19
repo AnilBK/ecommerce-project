@@ -32,6 +32,10 @@ function AddCustomProduct() {
         }
     };
 
+    const deleteImage = (index) => {
+        setImageList((prevList) => prevList.filter((_, i) => i !== index));
+    };
+
     const addProduct = () => {
         console.log("Product Added");
         console.log("Images: ", imageList);
@@ -72,6 +76,9 @@ function AddCustomProduct() {
                                 alt={image.name}
                                 style={{ width: "100px", marginLeft: "10px" }}
                             />
+                            <button onClick={() => deleteImage(index)} style={{ marginLeft: "10px" }}>
+                                Delete
+                            </button>
                         </li>
                     ))}
                 </ul>
