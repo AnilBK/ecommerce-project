@@ -65,23 +65,30 @@ function AddCustomProduct() {
                 </button>
             </div>
             <br />
-            <div>
-                <h4>Uploaded Images:</h4>
-                <ul>
-                    {imageList.map((image, index) => (
-                        <li key={index} style={{ listStyle: "none" }}>
-                            {image.name}
-                            <img
-                                src={image.src}
-                                alt={image.name}
-                                style={{ width: "100px", marginLeft: "10px" }}
-                            />
-                            <button onClick={() => deleteImage(index)} style={{ marginLeft: "10px" }}>
-                                Delete
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+            <div className="image-gallery">
+                <div>
+                    <h4 className="gallery-title">Uploaded Images:</h4>
+                    <ul className="image-list">
+                        {imageList.map((image, index) => (
+                            <li className="image-item" key={index}>
+                                <img
+                                    src={image.src}
+                                    alt={image.name}
+                                    className="image-preview"
+                                />
+                                <span className="image-name">
+                                    {image.name}
+                                </span>
+                                <button
+                                    className="delete-product-btn"
+                                    onClick={() => deleteImage(index)}
+                                >
+                                    X
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
             <button className="add-product-btn" onClick={addProduct}>
                 Add Product

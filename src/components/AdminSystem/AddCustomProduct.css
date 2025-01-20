@@ -5,3 +5,64 @@
     font-size: 22px;
     color: #ffffff;
 }
+
+.delete-product-btn {
+    margin-top: 10px;
+    padding: 5 px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.gallery-title {
+    text-align: center;
+}
+
+.image-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+}
+
+.image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    width: 120px;
+    /* Constrain the box width */
+    text-align: center;
+    /* Center-align content inside the box */
+    word-wrap: break-word;
+}
+
+.image-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+
+.image-name {
+    display: block;
+    max-width: 100%;
+    /* Keep within the container */
+    white-space: normal;
+    /* Allow wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Truncate long words */
+}
