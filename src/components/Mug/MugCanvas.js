@@ -43,7 +43,7 @@ function MugCanvas({ fontFamily, textStyle, canvasText, fontColor, textPosition,
     return (
         <canvas
             ref={canvasRef}
-            style={{ border: '1px solid black', display: 'block', margin: '20px auto' }}
+            style={{ display: 'block', margin: '20px auto', borderRadius: "16px", border: "1.5px solid #191919", boxShadow: "4px 4px 0 0 #191919" }}
         />
     );
 }
