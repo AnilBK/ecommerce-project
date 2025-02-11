@@ -44,48 +44,57 @@ function MugItem() {
     };
 
     return (
-        <div>
+        <div className="vertical-container">
             <div className="horizontal-container">
-                <div>
-                    <h1>Text Style</h1>
-                    <select onChange={(e) => setTextStyle(e.target.value)}>
-                        <option value="fill-text">Fill Text</option>
-                        <option value="stroke-text">Stroke Text</option>
-                    </select>
-                </div>
-                <div>
-                    <h1>Font</h1>
-                    <select onChange={(e) => setFontFamily(e.target.value)}>
-                        <option value="Arial">Arial</option>
-                        <option value="Verdana">Verdana</option>
-                        <option value="Tahoma">Tahoma</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                    </select>
-                </div>
-                <div>
-                    <h1>Color</h1>
-                    <input type="color" onChange={(e) => setFontColor(e.target.value)} />
-                </div>
-                <div>
-                    <h1>Text to print</h1>
-                    <textarea
-                        value={canvasText}
-                        onChange={(e) => setCanvasText(e.target.value)}
-                        placeholder="Enter text"
+                <div className="vertical-container">
+                    <MugRendererWithEditor
+                        fontFamily={fontFamily}
+                        textStyle={textStyle}
+                        canvasText={canvasText}
+                        fontColor={fontColor}
+                        textPosition={textPosition}
+                        setTextPosition={setTextPosition}
                     />
                 </div>
+                <div className="options-container">
+                    <div className="vertical-container">
+                        <div className="vertical-container">
+                            <h2>Text Style</h2>
+                            <select onChange={(e) => setTextStyle(e.target.value)}>
+                                <option value="fill-text">Fill Text</option>
+                                <option value="stroke-text">Stroke Text</option>
+                            </select>
+                        </div>
+                        <div className="vertical-container">
+                            <h2>Font</h2>
+                            <select onChange={(e) => setFontFamily(e.target.value)}>
+                                <option value="Arial">Arial</option>
+                                <option value="Verdana">Verdana</option>
+                                <option value="Tahoma">Tahoma</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                            </select>
+                        </div>
+                        <div className="vertical-container">
+                            <h2>Color</h2>
+                            <input type="color" onChange={(e) => setFontColor(e.target.value)} />
+                        </div>
+                        <div className="vertical-container">
+                            <h2>Text to print</h2>
+                            <textarea
+                                value={canvasText}
+                                onChange={(e) => setCanvasText(e.target.value)}
+                                placeholder="Enter text"
+                            />
+                        </div>
+                        <div className="vertical-container">
+                            <br></br>
+                            <AddGiftButton onGiftAdd={displayGiftData} />
+                            {responseMessage && <p>{responseMessage}</p>}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <MugRendererWithEditor
-                fontFamily={fontFamily}
-                textStyle={textStyle}
-                canvasText={canvasText}
-                fontColor={fontColor}
-                textPosition={textPosition}
-                setTextPosition={setTextPosition}
-            />
-            <AddGiftButton onGiftAdd={displayGiftData} />
-            {responseMessage && <p>{responseMessage}</p>}
         </div>
     );
 }
