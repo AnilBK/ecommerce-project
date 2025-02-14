@@ -51,30 +51,35 @@ function DiaryRenderer() {
     }, [diaryStyle, diaryText]);
 
     return (
-        <div>
-            <div className="horizontal-container-diary">
-                <div>
-                    <h1>Style</h1>
-                    <select onChange={(e) => { setDiaryStyle(e.target.value) }}>
-                        <option value="diary_style_1">Diary 1</option>
-                        <option value="diary_style_2">Diary 2</option>
-                        <option value="diary_style_3">Diary 3</option>
-                    </select>
-                </div>
-                <div>
-                    <h1>Text to print</h1>
-                    <textarea
-                        placeholder="Enter text" value={diaryText} onChange={(e) => setDiaryText(e.target.value)}
+        <div className="vertical-container">
+            <div className="horizontal-container">
+                <div className="vertical-container">
+                    <canvas
+                        ref={canvasRef}
+                        style={{ display: 'block', margin: '20px auto', borderRadius: "16px", border: "1.5px solid #191919", boxShadow: "4px 4px 0 0 #191919" }}
                     />
                 </div>
+                <div className="options-container">
+                    <div className="vertical-container">
+                        <div className="vertical-container">
+                            <h2>Colors</h2>
+                            <select onChange={(e) => { setDiaryStyle(e.target.value) }}>
+                                <option value="diary_style_1">Red</option>
+                                <option value="diary_style_2">Purple</option>
+                                <option value="diary_style_3">Rusty</option>
+                            </select>
+                        </div>
+                        <div className="vertical-container">
+                            <h2>Text to print</h2>
+                            <textarea
+                                placeholder="Enter text" value={diaryText} onChange={(e) => setDiaryText(e.target.value)}
+                            />
+                        </div>
+                        <br></br>
+                        <AddGiftButton onGiftAdd={displayDiaryData} />
+                    </div>
+                </div>
             </div>
-
-            <canvas
-                ref={canvasRef}
-                style={{ border: '1px solid black', display: 'block', margin: '20px auto' }}
-            />
-
-            <AddGiftButton onGiftAdd={displayDiaryData} />
         </div>
     );
 }

@@ -60,21 +60,29 @@ function Calendar() {
     };
 
     return (
-        <div>
-            <div className="horizontal-container-calendar">
-                <div>
-                    <h2>Custom Image</h2>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        style={{ marginLeft: '20px' }}
+        <div className="vertical-container">
+            <div className="horizontal-container">
+                <div className="vertical-container">
+                    <canvas ref={canvasRef} style={{ borderRadius: "16px", border: "1.5px solid #191919", boxShadow: "4px 4px 0 0 #191919", display: 'block', margin: '20px auto' }}
                     />
                 </div>
+                <div className="options-container">
+                    <div className="vertical-container">
+                        <div className="vertical-container">
+                            <h2>Custom Image</h2>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                style={{ marginLeft: '20px' }}
+                            />
+                        </div>
+                        <br></br>
+
+                        <AddGiftButton onGiftAdd={displayCalendarData} />
+                    </div>
+                </div>
             </div>
-            <canvas ref={canvasRef} style={{ border: '1px solid black', display: 'block', margin: '20px auto' }}
-            />
-            <AddGiftButton onGiftAdd={displayCalendarData} />
         </div>
     );
 }
