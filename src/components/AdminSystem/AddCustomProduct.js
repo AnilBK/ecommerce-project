@@ -60,7 +60,7 @@ function AddCustomProduct() {
                     onChange={handleImageUpload}
                     name='custom_image'
                 />
-                <button onClick={addImage} className="add-image-btn">
+                <button onClick={addImage} className="add-image-btn" disabled={!userImage}>
                     Add Image
                 </button>
             </div>
