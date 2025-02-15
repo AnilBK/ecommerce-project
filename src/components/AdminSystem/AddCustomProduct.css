@@ -1,3 +1,10 @@
+.add-product-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
 .add-product-btn {
     padding: 10px 50px;
     background-color: #04AA6D;
@@ -6,9 +13,14 @@
     color: #ffffff;
 }
 
+.add-image-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 .delete-product-btn {
     margin-top: 10px;
-    padding: 5 px;
+    padding: 5px 10px;
     background-color: red;
     color: white;
     border: none;
@@ -16,15 +28,34 @@
     cursor: pointer;
 }
 
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    padding: 8px;
+    width: 200px;
+}
+
 .image-gallery {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     width: 100%;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .gallery-title {
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .image-list {
@@ -35,6 +66,7 @@
     gap: 20px;
     list-style: none;
     margin: 0;
+    list-style-type: none;
 }
 
 .image-item {
@@ -47,6 +79,7 @@
     text-align: center;
     /* Center-align content inside the box */
     word-wrap: break-word;
+    display: inline-block;
 }
 
 .image-preview {
@@ -54,6 +87,7 @@
     height: 100px;
     object-fit: cover;
     margin-bottom: 5px;
+    display: block;
 }
 
 .image-name {

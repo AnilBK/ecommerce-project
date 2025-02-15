@@ -42,17 +42,18 @@ function AddCustomProduct() {
     };
 
     return (
-        <div>
-            <div>
+        <div className="add-product-container">
+            <h2 className="admin-system-title">Admin System</h2>
+            <div className="form-group">
                 <label htmlFor='product_name'>Product Name: </label>
                 <input type='text' placeholder='Enter product name' name='product_name'></input>
             </div>
-            <div>
+            <div className="form-group">
                 <label htmlFor='product_price'>Product Price: </label>
                 <input type='number' placeholder='Enter product price' name='product_price'></input>
             </div>
             <br />
-            <div>
+            <div className="form-group">
                 <label htmlFor='custom_image'>Custom Image</label>
                 <input
                     type="file"
