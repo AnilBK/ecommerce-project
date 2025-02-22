@@ -2,7 +2,47 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 0 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    /* Ensure padding is included in the element's total width */
+    width: 100%;
+    /* Set width to 100% */
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    /* Make labels bold */
+}
+
+.form-group input {
+    padding: 8px 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group input[type="file"] {
+    padding: 10px 0;
+    /* Remove default padding */
+}
+
+/* Optionally: Style the file input to match other inputs */
+.form-group input[type="file"]::file-selector-button {
+    margin-right: 10px;
+    padding: 8px 10px;
+    /* Match padding of other inputs */
+    border: 1px solid #ccc;
+    border-radius: 3px;
 }
 
 .add-product-btn {
@@ -11,6 +51,18 @@
     border: none;
     font-size: 22px;
     color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.add-image-btn {
+    height: 40px;
+    margin-top: 10px;
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 .add-image-btn:disabled {
@@ -28,28 +80,11 @@
     cursor: pointer;
 }
 
-.form-group {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.form-group label {
-    margin-bottom: 5px;
-}
-
-.form-group input {
-    padding: 8px;
-    width: 200px;
-}
-
 .image-gallery {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     width: 100%;
-    margin-top: 20px;
     text-align: center;
 }
 

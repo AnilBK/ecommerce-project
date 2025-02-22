@@ -45,16 +45,19 @@ function AddCustomProduct() {
         <div className="add-product-container">
             <h2 className="admin-system-title">Admin System</h2>
             <div className="form-group">
-                <label htmlFor='product_name'>Product Name: </label>
-                <input type='text' placeholder='Enter product name' name='product_name'></input>
+                <label htmlFor='product_name'>Product Name</label>
+                <input type='text' name='product_name'></input>
             </div>
             <div className="form-group">
-                <label htmlFor='product_price'>Product Price: </label>
-                <input type='number' placeholder='Enter product price' name='product_price'></input>
+                <label htmlFor='product_price'>Product Price</label>
+                <input type='number' name='product_price' min='0'></input>
             </div>
-            <br />
             <div className="form-group">
-                <label htmlFor='custom_image'>Custom Image</label>
+                <label htmlFor='product_description'>Product Description</label>
+                <input type='text' name='product_description'></input>
+            </div>
+            <div className="form-group">
+                <label htmlFor='custom_image'>Upload Images</label>
                 <input
                     type="file"
                     accept="image/*"
@@ -68,7 +71,7 @@ function AddCustomProduct() {
             <br />
             <div className="image-gallery">
                 <div>
-                    <h4 className="gallery-title">Uploaded Images:</h4>
+                    <h4 className="gallery-title">Uploaded Images</h4>
                     <ul className="image-list">
                         {imageList.map((image, index) => (
                             <li className="image-item" key={index}>
@@ -91,6 +94,7 @@ function AddCustomProduct() {
                     </ul>
                 </div>
             </div>
+            <br />
             <button className="add-product-btn" onClick={addProduct}>
                 Add Product
             </button>
