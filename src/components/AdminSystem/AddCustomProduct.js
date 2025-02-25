@@ -105,7 +105,7 @@ function AddCustomProduct() {
             <br />
             <div className="image-gallery">
                 <div>
-                    <h4 className="gallery-title">Uploaded Images</h4>
+                    {imageList.length > 0 && <h4 className="gallery-title">Uploaded Images</h4>}
                     <ul className="image-list">
                         {imageList.map((image, index) => (
                             <li className="image-item" key={index}>
