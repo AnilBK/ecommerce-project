@@ -31,6 +31,25 @@ app.post('/api/save-gift-data', async (req, res) => {
     }
 });
 
+app.post('/api/save-category-name', async (req, res) => {
+    try {
+        await client.connect();
+        const database = client.db('ecommerce');
+
+        const collection = database.collection('categoryNames');
+
+        const categoryName = req.body['categoryName'];
+        const result = await collection.insertOne({ categoryName });
+        res.status(200).send({ message: 'Category name saved' });
+    } catch (err) {
+        console.error('Error saving category name:', err);
+        res.status(500).send({ error: 'Failed to save category name' });
+    } finally {
+        await client.close();
+    }
+}
+);
+
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

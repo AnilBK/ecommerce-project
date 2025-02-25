@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 
 import "./AddCustomProduct.css";
+import axios from 'axios';
 
 function AddCustomProduct() {
     const [userImage, setUserImage] = useState(null);
     const [uploadedFilePath, setUploadedFilePath] = useState(null);
     const [imageList, setImageList] = useState([]);
+    const [categoryName, setCategoryName] = useState('');
+    const [customProductResponseMessage, setcustomProductResponseMessage] = useState('');
+
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
@@ -40,6 +44,36 @@ function AddCustomProduct() {
         console.log("Product Added");
         console.log("Images: ", imageList);
     };
+
+    const updateCategoryName = (event) => {
+        setCategoryName(event.target.value);
+    }
+
+    const addCategoryName = async (e) => {
+        e.preventDefault();
+        try {
+            const categoryNameData = {
+                categoryName: categoryName,
+            };
+
+            const response = await axios.post('http://localhost:5000/api/save-category-name', categoryNameData);
+
+            setcustomProductResponseMessage(response.data.message);
+            setTimeout(() => {
+                setcustomProductResponseMessage('');
+            }, 3000);
+
+        } catch (err) {
+            console.error('Error saving gift data:', err);
+
+            setcustomProductResponseMessage('Failed to save gift data');
+            setTimeout(() => {
+                setcustomProductResponseMessage('');
+            }, 3000);
+
+        }
+    };
+
 
     return (
         <div className="add-product-container">
@@ -98,6 +132,17 @@ function AddCustomProduct() {
             <button className="add-product-btn" onClick={addProduct}>
                 Add Product
             </button>
+
+            <h2 className="admin-system-title">Add Category System</h2>
+            <div className="form-group">
+                <label htmlFor='category_name'>Category Name</label>
+                <input type='text' name='category_name' onChange={updateCategoryName}></input>
+            </div>
+            <button className="add-product-btn" onClick={addCategoryName}>
+                Add Category
+            </button>
+            {customProductResponseMessage && <p>{customProductResponseMessage}</p>}
+            <br />
         </div>
     );
 }
