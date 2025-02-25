@@ -4,24 +4,24 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
 const uri = 'mongodb://localhost:27017/';
 const client = new MongoClient(uri);
 
 app.post('/api/save-gift-data', async (req, res) => {
-    const giftData = req.body; 
+    const giftData = req.body;
     try {
         await client.connect();
         const database = client.db('ecommerce');
-        
+
         const collection = database.collection('gifts');
         const result = await collection.insertOne(giftData);
         const id = result.insertedId;
-        
+
         const collection2 = database.collection('giftList');
         const result2 = await collection2.insertOne({ giftId: id });
-        
+
         res.status(200).send({ message: 'Gift data saved and gift id inserted', giftId: id, giftListId: result2.insertedId });
     } catch (err) {
         console.error('Error saving data:', err);
