@@ -50,6 +50,22 @@ app.post('/api/save-category-name', async (req, res) => {
 }
 );
 
+app.get('/api/get-category-names', async (req, res) => {
+    try {
+        await client.connect();
+        const database = client.db('ecommerce');
+        const collection = database.collection('categoryNames');
+        const categories = await collection.find({}).toArray();
+        res.status(200).json(categories);
+    } catch (err) {
+        console.error('Error fetching category names:', err);
+        res.status(500).json({ error: 'Failed to fetch category names' });
+    } finally {
+        await client.close();
+    }
+}
+);
+
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
