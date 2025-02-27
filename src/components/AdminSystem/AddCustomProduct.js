@@ -1,7 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import "./AddCustomProduct.css";
 import axios from 'axios';
+
+const ProductCategoryDropdown = () => {
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState("");
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get("http://localhost:5000/api/get-category-names");
+                setCategories(response.data);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
+    return (
+        <div className="form-group">
+            <label htmlFor="product_category">Product Category</label>
+            <select
+                id="product_category"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+                <option value="">-- Select --</option>
+                {categories.map((category, index) => (
+                    <option key={index} value={category.categoryName}>
+                        {category.categoryName}
+                    </option>
+                ))}
+            </select>
+            {/* {selectedCategory && <p>Selected: {selectedCategory}</p>} */}
+        </div>
+    );
+};
 
 function AddCustomProduct() {
     const [userImage, setUserImage] = useState(null);
@@ -90,6 +127,7 @@ function AddCustomProduct() {
                 <label htmlFor='product_description'>Product Description</label>
                 <input type='text' name='product_description'></input>
             </div>
+            <ProductCategoryDropdown />
             <div className="form-group">
                 <label htmlFor='custom_image'>Upload Images</label>
                 <input

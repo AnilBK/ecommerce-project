@@ -45,6 +45,16 @@
     border-radius: 3px;
 }
 
+.form-group select {
+    padding: 8px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
 .add-product-btn {
     padding: 10px 50px;
     background-color: #04AA6D;
