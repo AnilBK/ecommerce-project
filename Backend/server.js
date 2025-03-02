@@ -66,6 +66,23 @@ app.get('/api/get-category-names', async (req, res) => {
 }
 );
 
+app.post('/api/save-product', async (req, res) => {
+    try {
+        await client.connect();
+        const database = client.db('ecommerce');
+        const collection = database.collection('products');
+
+        const productData = req.body;
+        const result = await collection.insertOne(productData);
+        res.status(200).send({ message: 'Product saved successfully', productId: result.insertedId });
+    } catch (err) {
+        console.error('Error saving product:', err);
+        res.status(500).send({ error: 'Failed to save product' });
+    } finally {
+        await client.close();
+    }
+});
+
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
