@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 
 import calendar from "../../assets/images/Calendar.png"
 import CalendarDefaultImage from "../../assets/images/Calendar_default_image.png"
+import { saveGiftData } from '../../services/api';
 
 import AddGiftButton from '../AddGiftButton';
 
@@ -12,14 +13,33 @@ function Calendar() {
     const [userImage, setUserImage] = useState(null);
     const [uploadedFilePath, setUploadedFilePath] = useState(null);
 
-    function displayCalendarData() {
-        if (userImage) {
+    const [responseMessage, setResponseMessage] = useState('');
+
+    const saveCalendarGift = async (e) => {
+        e.preventDefault();
+
+        if (userImage && uploadedFilePath) {
             console.log("User has uploaded their own image.");
-            if (uploadedFilePath) {
-                console.log(`Uploaded file path: ${uploadedFilePath}`);
+            console.log(`Uploaded file path: ${uploadedFilePath}`);
+
+            try {
+                const giftData = {
+                    GIFT_TYPE: "Calendar",
+                    imagePath: uploadedFilePath,
+                };
+
+                const response = await saveGiftData(giftData);
+                setResponseMessage(response.data.message);
+            } catch (err) {
+                console.error('Error saving gift data:', err);
+                setResponseMessage('Failed to save gift data');
             }
+        } else {
+            console.log("No valid user image or file path, skipping request.");
+            setResponseMessage('Please upload an image to proceed.');
         }
-    }
+    };
+
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -79,7 +99,8 @@ function Calendar() {
                         </div>
                         <br></br>
 
-                        <AddGiftButton onGiftAdd={displayCalendarData} />
+                        <AddGiftButton onGiftAdd={saveCalendarGift} />
+                        {responseMessage && <p>{responseMessage}</p>}
                     </div>
                 </div>
             </div>

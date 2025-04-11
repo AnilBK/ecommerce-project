@@ -6,6 +6,8 @@ import Diary3 from "../../assets/images/diary3.png"
 
 import AddGiftButton from "../AddGiftButton"
 
+import { saveGiftData } from '../../services/api';
+
 import './diary.css';
 
 function DiaryRenderer() {
@@ -13,11 +15,24 @@ function DiaryRenderer() {
     const [diaryStyle, setDiaryStyle] = useState('diary_style_1');
     const [diaryText, setDiaryText] = useState('');
 
-    function displayDiaryData() {
-        console.log('Diary Data');
-        console.log('Diary Style: ', diaryStyle);
-        console.log('Diary Text: ', diaryText);
-    }
+    const [responseMessage, setResponseMessage] = useState('');
+
+    const saveDiaryGift = async (e) => {
+        e.preventDefault();
+        try {
+            const giftData = {
+                GIFT_TYPE: "Diary",
+                diaryStyle: diaryStyle,
+                diaryText: diaryText,
+            };
+
+            const response = await saveGiftData(giftData);
+            setResponseMessage(response.data.message);
+        } catch (err) {
+            console.error('Error saving gift data:', err);
+            setResponseMessage('Failed to save gift data');
+        }
+    };
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -76,7 +91,8 @@ function DiaryRenderer() {
                             />
                         </div>
                         <br></br>
-                        <AddGiftButton onGiftAdd={displayDiaryData} />
+                        <AddGiftButton onGiftAdd={saveDiaryGift} />
+                        {responseMessage && <p>{responseMessage}</p>}
                     </div>
                 </div>
             </div>

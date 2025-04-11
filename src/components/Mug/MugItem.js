@@ -22,16 +22,16 @@ function MugItem() {
     //     console.log('Font Color: ', fontColor);
     // }
 
-    const displayGiftData = async (e) => {
+    const addMugItemGift = async (e) => {
         e.preventDefault();
         try {
             const giftData = {
+                GIFT_TYPE: "mug",
                 fontFamily: fontFamily,
                 textStyle: textStyle,
                 textPosition: textPosition,
                 canvasText: canvasText,
                 fontColor: fontColor,
-                GIFT_TYPE: "mug",
             };
 
             const response = await saveGiftData(giftData);
@@ -88,7 +88,7 @@ function MugItem() {
                         </div>
                         <div className="vertical-container">
                             <br></br>
-                            <AddGiftButton onGiftAdd={displayGiftData} />
+                            <AddGiftButton onGiftAdd={addMugItemGift} />
                             {responseMessage && <p>{responseMessage}</p>}
                         </div>
                     </div>
