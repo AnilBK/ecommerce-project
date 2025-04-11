@@ -4,6 +4,7 @@ import './App.css';
 
 import Home from './pages/Home';
 import Admin from './pages/Admin';
+import MyCart from './pages/MyCart/MyCart';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
         <Route path='/admin' element={<Admin />} />
+        <Route path='/mycart' element={<MyCart />} />
       </Routes>
     </BrowserRouter>
   );
