@@ -1,5 +1,5 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId} = require('mongodb');
 const cors = require('cors');
 
 const app = express();
@@ -119,6 +119,30 @@ app.post('/api/save-product', async (req, res) => {
     } catch (err) {
         console.error('Error saving product:', err);
         res.status(500).send({ error: 'Failed to save product' });
+    } finally {
+        await client.close();
+    }
+});
+
+app.delete('/api/delete-gift/:id', async (req, res) => {
+    const giftId = req.params.id;
+
+    try {
+        await client.connect();
+        const db = client.db('ecommerce');
+
+        const giftsCollection = db.collection('gifts');
+        const giftListCollection = db.collection('giftList');
+
+        const objectId = new ObjectId(giftId);
+
+        const deleteGift = await giftsCollection.deleteOne({ _id: objectId });
+        const deleteGiftRef = await giftListCollection.deleteMany({ giftId: objectId });
+
+        res.status(200).json({ message: 'Gift deleted', deleteGift, deleteGiftRef });
+    } catch (err) {
+        console.error("Error deleting gift:", err);
+        res.status(500).json({ error: 'Failed to delete gift' });
     } finally {
         await client.close();
     }
