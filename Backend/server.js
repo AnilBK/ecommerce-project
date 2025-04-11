@@ -40,6 +40,38 @@ app.post('/api/save-gift-data', async (req, res) => {
     }
 });
 
+app.get('/api/get-all-gift-data', async (req, res) => {
+    try {
+        await client.connect();
+        const database = client.db('ecommerce');
+        const collection = database.collection('gifts');
+        const gifts = await collection.find({}).toArray();
+        res.status(200).json(gifts);
+    } catch (err) {
+        console.error('Error fetching gift data:', err);
+        res.status(500).json({ error: 'Failed to fetch gift data' });
+    } finally {
+        await client.close();
+    }
+}
+);
+
+app.get('/api/total-gifts', async (req, res) => {
+    try {
+        await client.connect();
+        const database = client.db('ecommerce');
+        const collection = database.collection('gifts');
+        const totalGifts = await collection.countDocuments({});
+        res.status(200).json({ totalGifts });
+    } catch (err) {
+        console.error('Error fetching total gifts:', err);
+        res.status(500).json({ error: 'Failed to fetch total gifts' });
+    } finally {
+        await client.close();
+    }
+}
+);
+
 app.post('/api/save-category-name', async (req, res) => {
     try {
         await client.connect();
