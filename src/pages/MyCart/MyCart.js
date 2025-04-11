@@ -7,6 +7,8 @@ import MugRenderer from '../../components/Mug/MugRenderer';
 import CalendarCanvas from '../../components/Calendar/CalendarCanvas';
 import DiaryCanvas from '../../components/Diary/DiaryCanvas';
 
+import './mycart.css';
+
 const GiftRenderer = ({ gift, handleDelete }) => {
     const renderGift = () => {
         switch (gift.GIFT_TYPE) {
@@ -30,9 +32,9 @@ const GiftRenderer = ({ gift, handleDelete }) => {
     };
 
     return (
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '20px', textAlign: 'center' }}>
             {renderGift()}
-            <button onClick={() => handleDelete(gift._id)}>Delete</button>
+            <button onClick={() => handleDelete(gift._id)}>Delete ❌</button>
         </div>
     );
 };
@@ -63,9 +65,19 @@ const AllGifts = () => {
     };
 
     return (
-        <div className="form-group">
-            {gifts.map((gift, index) => (
-                <GiftRenderer key={gift._id} gift={gift} handleDelete={handleDelete} />
+        <div className="vertical-container">
+            {gifts.map((gift, index) => (<>
+                <div className="horizontal-container" style={{ marginBottom: '20px' }} key={index}>
+                    <div className="vertical-container">
+                        <GiftRenderer key={gift._id} gift={gift} handleDelete={handleDelete} />
+                    </div>
+                    <div className="vertical-container">
+                        <h2>Gift ID: {gift._id}</h2>
+                        <h2>Gift Type: {gift.GIFT_TYPE}</h2>
+                    </div>
+
+                </div>
+            </>
             ))}
         </div>
     );
