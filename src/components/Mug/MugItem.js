@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import MugRendererWithEditor from './MugRendererWithEditor';
 import AddGiftButton from '../AddGiftButton';
-
+import { saveGiftData } from '../../services/api';
 import './MugItem.css';
-
-import axios from 'axios';
 
 function MugItem() {
     const [fontFamily, setFontFamily] = useState('Arial');
@@ -36,7 +34,7 @@ function MugItem() {
                 GIFT_TYPE: "mug",
             };
 
-            const response = await axios.post('http://localhost:5000/api/save-gift-data', giftData);
+            const response = await saveGiftData(giftData);
             setResponseMessage(response.data.message);
         } catch (err) {
             console.error('Error saving gift data:', err);

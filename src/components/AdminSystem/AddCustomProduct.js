@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import { fetchAllCategories, saveProduct, saveCategoryName } from '../../services/api';
 import "./AddCustomProduct.css";
-import axios from 'axios';
 
 const ProductCategoryDropdown = ({ setProductCategory }) => {
     const [categories, setCategories] = useState([]);
@@ -9,7 +8,7 @@ const ProductCategoryDropdown = ({ setProductCategory }) => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/get-category-names");
+                const response = await fetchAllCategories();
                 setCategories(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -43,7 +42,7 @@ const Products = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/get-category-names");
+                const response = await fetchAllCategories();
                 setCategories(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -118,7 +117,7 @@ function AddCustomProduct() {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/save-product', productData);
+            const response = await saveProduct(productData);
             setProductName('');
             setProductPrice('');
             setProductDescription('');
@@ -141,7 +140,7 @@ function AddCustomProduct() {
                 categoryName: categoryName,
             };
 
-            const response = await axios.post('http://localhost:5000/api/save-category-name', categoryNameData);
+            const response = await saveCategoryName(categoryNameData);
 
             setcustomProductResponseMessage(response.data.message);
             setTimeout(() => {

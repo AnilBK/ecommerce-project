@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import AddCustomProduct from '../components/AdminSystem';
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import { fetchServerStatus } from '../services/api';
 
 const Admin = () => {
     const [status, setStatus] = useState("Connecting...");
@@ -10,7 +10,7 @@ const Admin = () => {
     useEffect(() => {
         const checkConnection = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/status");
+                const res = await fetchServerStatus();
                 if (res.data.status === "Connected") {
                     setStatus("✅ Connected to Server");
                     setConnected(true);
