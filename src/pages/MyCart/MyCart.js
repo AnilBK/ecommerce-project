@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import { fetchAllGiftData, deleteGiftData } from '../../services/api';
 
@@ -59,8 +60,9 @@ const AllGifts = () => {
         try {
             await deleteGiftData(giftId);
             setGifts(prev => prev.filter(g => g._id !== giftId));
+            toast.success("Gift deleted successfully");
         } catch (err) {
-            console.error("Failed to delete gift:", err);
+            toast.error("Failed to delete gift: " + err.message);
         }
     };
 
