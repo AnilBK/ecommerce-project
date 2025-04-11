@@ -33,6 +33,7 @@ function MugItem() {
                 textPosition: textPosition,
                 canvasText: canvasText,
                 fontColor: fontColor,
+                GIFT_TYPE: "mug",
             };
 
             const response = await axios.post('http://localhost:5000/api/save-gift-data', giftData);

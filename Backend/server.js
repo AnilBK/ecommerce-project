@@ -15,6 +15,11 @@ app.get("/api/status", (req, res) => {
 
 app.post('/api/save-gift-data', async (req, res) => {
     const giftData = req.body;
+
+    if (!giftData.GIFT_TYPE) {
+        return res.status(400).send({ error: "Gift type is required" });
+    }
+
     try {
         await client.connect();
         const database = client.db('ecommerce');
@@ -24,7 +29,7 @@ app.post('/api/save-gift-data', async (req, res) => {
         const id = result.insertedId;
 
         const collection2 = database.collection('giftList');
-        const result2 = await collection2.insertOne({ giftId: id });
+        const result2 = await collection2.insertOne({ giftId: id, GIFT_TYPE: giftData.GIFT_TYPE });
 
         res.status(200).send({ message: 'Gift data saved and gift id inserted', giftId: id, giftListId: result2.insertedId });
     } catch (err) {
