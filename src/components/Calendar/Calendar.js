@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 import CalendarCanvas from './CalendarCanvas';
 import { saveGiftData } from '../../services/api';
@@ -10,7 +11,6 @@ import './calendar.css';
 function Calendar() {
     const [userImage, setUserImage] = useState(null);
     const [uploadedFilePath, setUploadedFilePath] = useState(null);
-    const [responseMessage, setResponseMessage] = useState('');
 
     const saveCalendarGift = async (e) => {
         e.preventDefault();
@@ -26,14 +26,12 @@ function Calendar() {
                 };
 
                 const response = await saveGiftData(giftData);
-                setResponseMessage(response.data.message);
+                toast.success(response.data.message);
             } catch (err) {
-                console.error('Error saving gift data:', err);
-                setResponseMessage('Failed to save gift data');
+                toast.error(`Failed to save gift data: ${err.message}`);
             }
         } else {
-            console.log("No valid user image or file path, skipping request.");
-            setResponseMessage('Please upload an image to proceed.');
+            toast.error('Please upload an image to proceed.');
         }
     };
 
@@ -66,7 +64,6 @@ function Calendar() {
                         </div>
                         <br />
                         <AddGiftButton onGiftAdd={saveCalendarGift} />
-                        {responseMessage && <p>{responseMessage}</p>}
                     </div>
                 </div>
             </div>

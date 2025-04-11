@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 import AddGiftButton from "../AddGiftButton";
 import { saveGiftData } from '../../services/api';
@@ -10,7 +11,6 @@ import './diary.css';
 function DiaryRenderer() {
     const [diaryStyle, setDiaryStyle] = useState('diary_style_1');
     const [diaryText, setDiaryText] = useState('');
-    const [responseMessage, setResponseMessage] = useState('');
 
     const saveDiaryGift = async (e) => {
         e.preventDefault();
@@ -22,10 +22,9 @@ function DiaryRenderer() {
             };
 
             const response = await saveGiftData(giftData);
-            setResponseMessage(response.data.message);
+            toast.success(response.data.message);
         } catch (err) {
-            console.error('Error saving gift data:', err);
-            setResponseMessage('Failed to save gift data');
+            toast.error('Failed to save gift data.');
         }
     };
 
@@ -55,7 +54,6 @@ function DiaryRenderer() {
                         </div>
                         <br />
                         <AddGiftButton onGiftAdd={saveDiaryGift} />
-                        {responseMessage && <p>{responseMessage}</p>}
                     </div>
                 </div>
             </div>

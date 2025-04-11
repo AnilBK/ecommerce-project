@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+
 import MugRendererWithEditor from './MugRendererWithEditor';
 import AddGiftButton from '../AddGiftButton';
 import { saveGiftData } from '../../services/api';
@@ -10,8 +12,6 @@ function MugItem() {
     const [canvasText, setCanvasText] = useState('Hello, Canvas!');
     const [fontColor, setFontColor] = useState('#000000');
     const [textPosition, setTextPosition] = useState({ x: 200, y: 200 });
-
-    const [responseMessage, setResponseMessage] = useState('');
 
     // function displayGiftData() {
     //     console.log('Gift Data');
@@ -35,10 +35,10 @@ function MugItem() {
             };
 
             const response = await saveGiftData(giftData);
-            setResponseMessage(response.data.message);
+            toast.success(response.data.message);
         } catch (err) {
             console.error('Error saving gift data:', err);
-            setResponseMessage('Failed to save gift data');
+            toast.error('Failed to save gift data');
         }
     };
 
@@ -89,7 +89,6 @@ function MugItem() {
                         <div className="vertical-container">
                             <br></br>
                             <AddGiftButton onGiftAdd={addMugItemGift} />
-                            {responseMessage && <p>{responseMessage}</p>}
                         </div>
                     </div>
                 </div>
