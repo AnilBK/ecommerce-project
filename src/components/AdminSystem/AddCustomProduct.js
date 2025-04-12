@@ -38,7 +38,7 @@ const ProductCategoryDropdown = ({ setProductCategory }) => {
     );
 };
 
-const Products = () => {
+const ProductCategories = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -55,11 +55,13 @@ const Products = () => {
     }, []);
 
     return (
-        <div className="form-group">
-            <h1>Products...</h1>
-            {categories.map((category, index) => (
-                <h1 key={index}><i>{category.categoryName}</i></h1>
-            ))}
+        <div style={{ textAlign: 'left' }}>
+            <label className="category-label">Existing Categories</label>
+            <ul className="category-list">
+                {categories.map((category, index) => (
+                    <li key={index} className="category-item">{category.categoryName}</li>
+                ))}
+            </ul>
         </div>
     );
 };
@@ -124,8 +126,13 @@ function AddCustomProduct() {
             setProductDescription('');
             setProductCategory('');
             setImageList([]);
+            toast.success("Product added successfully, message: " + response.data.message);
         } catch (err) {
-            toast.error("Failed to save product: " + err.message);
+            if (err.response && err.response.status === 413) {
+                toast.error("Upload failed: Payload too large. Try reducing image sizes.");
+            } else {
+                toast.error("Failed to save product: " + (err.message || "Unknown error"));
+            }
         }
     };
 
@@ -207,14 +214,16 @@ function AddCustomProduct() {
 
             <h2 className="admin-system-title">Add Category System</h2>
             <div className="form-group">
+                <ProductCategories />
+            </div>
+            <div className="form-group">
                 <label htmlFor='category_name'>Category Name</label>
                 <input type='text' name='category_name' onChange={updateCategoryName}></input>
             </div>
-            <button className="add-product-btn" onClick={addCategoryName}>
+            <button className="add-product-btn" onClick={addCategoryName} disabled={!categoryName.trim()}>
                 Add Category
             </button>
             <br />
-            <Products />
         </div>
     );
 }
