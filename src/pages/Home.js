@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import MugItem from '../components/Mug';
 import DiaryRenderer from '../components/Diary';
 import Calendar from '../components/Calendar';
+import Product from "../components/Products/Products";
+
 import { getTotalGifts } from '../services/api';
 import './Home.css';
 
@@ -43,6 +45,8 @@ function Home() {
 
             <h1>Design a Calendar</h1>
             <Calendar />
+
+            <Product />
         </div>
     );
 }

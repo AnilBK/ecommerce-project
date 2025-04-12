@@ -18,4 +18,6 @@ export const deleteGiftData = (giftId) => api.delete(`/delete-gift/${giftId}`);
 
 export const getTotalGifts = () => api.get("/total-gifts");
 
-export const saveProduct = (productData) => { api.post("/save-product", productData); };
+export const saveProduct = (productData) => api.post("/save-product", productData);
+
+export const fetchAllProductsByCategory = () => api.get("/products-by-category");
