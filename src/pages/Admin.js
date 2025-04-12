@@ -35,7 +35,7 @@ const Admin = () => {
         <div>
             {connected ? (
                 <>
-                    <Link to={'/'}>Home</Link>
+                    <Link to={'/'}><h1>Home</h1></Link>
                     <AddCustomProduct />
                 </>
             ) : (

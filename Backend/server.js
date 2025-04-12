@@ -156,6 +156,29 @@ app.get('/api/products-by-category', async (req, res) => {
     }
 });
 
+app.get('/api/get-gift-by-product-id/:productId', async (req, res) => {
+    const productId = req.params.productId;
+
+    try {
+        await client.connect();
+        const database = client.db('ecommerce');
+        const productsCollection = database.collection('products');
+
+        const product = await productsCollection.findOne({ _id: new ObjectId(productId) });
+
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        res.status(200).json(product);
+    } catch (err) {
+        console.error('Error fetching gift by product ID:', err);
+        res.status(500).json({ error: 'Failed to fetch gift by product ID' });
+    } finally {
+        await client.close();
+    }
+});
+
 app.post('/api/save-product', async (req, res) => {
     try {
         await client.connect();

@@ -21,3 +21,5 @@ export const getTotalGifts = () => api.get("/total-gifts");
 export const saveProduct = (productData) => api.post("/save-product", productData);
 
 export const fetchAllProductsByCategory = () => api.get("/products-by-category");
+
+export const fetchGiftByProductId = (productId) => api.get(`/get-gift-by-product-id/${productId}`);

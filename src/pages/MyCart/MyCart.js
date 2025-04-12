@@ -2,15 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-import { fetchAllGiftData, deleteGiftData } from '../../services/api';
+import { fetchAllGiftData, deleteGiftData, fetchGiftByProductId } from '../../services/api';
 
 import MugRenderer from '../../components/Mug/MugRenderer';
 import CalendarCanvas from '../../components/Calendar/CalendarCanvas';
 import DiaryCanvas from '../../components/Diary/DiaryCanvas';
+import ProductComponent from '../../components/Products/ProductComponent';
 
 import './mycart.css';
 
 const GiftRenderer = ({ gift, handleDelete }) => {
+    const [productData, setProductData] = useState(null);
+
+    useEffect(() => {
+        if (gift.GIFT_TYPE === "NORMAL") {
+            const fetchProductData = async () => {
+                try {
+                    const response = await fetchGiftByProductId(gift.productId);
+                    setProductData(response.data);
+                } catch (error) {
+                    toast.error("Error fetching product data: " + error.message);
+                }
+            };
+
+            fetchProductData();
+        }
+    }, [gift.productId, gift.GIFT_TYPE]);
+
     const renderGift = () => {
         switch (gift.GIFT_TYPE) {
             case "mug":
@@ -27,6 +45,8 @@ const GiftRenderer = ({ gift, handleDelete }) => {
                 return (<CalendarCanvas userImage={resolvedImagePath} />);
             case "Diary":
                 return (<DiaryCanvas diaryStyle={gift.diaryStyle} diaryText={gift.diaryText} />);
+            case "NORMAL":
+                return productData ? <ProductComponent product={productData} showButton={false} /> : <h1>Loading Product...</h1>;
             default:
                 return <h1>Default Gift</h1>;
         }
@@ -68,18 +88,16 @@ const AllGifts = () => {
 
     return (
         <div className="vertical-container">
-            {gifts.map((gift, index) => (<>
-                <div className="horizontal-container" style={{ marginBottom: '20px' }} key={index}>
+            {gifts.map((gift) => (
+                <div className="horizontal-container" style={{ marginBottom: '20px' }} key={gift._id}>
                     <div className="vertical-container">
-                        <GiftRenderer key={gift._id} gift={gift} handleDelete={handleDelete} />
+                        <GiftRenderer gift={gift} handleDelete={handleDelete} />
                     </div>
                     <div className="vertical-container">
                         <h2>Gift ID: {gift._id}</h2>
                         <h2>Gift Type: {gift.GIFT_TYPE}</h2>
                     </div>
-
                 </div>
-            </>
             ))}
         </div>
     );

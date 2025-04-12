@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import ProductComponent from './ProductComponent';
 
 import { fetchAllProductsByCategory } from '../../services/api';
 
@@ -33,15 +34,7 @@ const ProductsByCategory = () => {
                     <h2>{group.category}</h2>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
                         {group.products.map(product => (
-                            <div key={product._id} style={{ border: '1px solid #ccc', padding: '10px', width: '200px' }}>
-                                <h3>{product.name}</h3>
-                                <p>{product.description}</p>
-                                <p><strong>${product.price}</strong></p>
-                                {product.images?.map((img, index) => (
-                                    <img key={index} src={img.src} alt={img.name} style={{ width: '100%', height: 'auto' }} />
-                                ))}
-                                <button>Add Gift</button>
-                            </div>
+                            <ProductComponent key={product._id} product={product} showButton={true} />
                         ))}
                     </div>
                 </div>
