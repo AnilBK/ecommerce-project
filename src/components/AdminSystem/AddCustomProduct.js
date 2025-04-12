@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
+
 import { fetchAllCategories, saveProduct, saveCategoryName } from '../../services/api';
 import "./AddCustomProduct.css";
 
@@ -11,7 +13,7 @@ const ProductCategoryDropdown = ({ setProductCategory }) => {
                 const response = await fetchAllCategories();
                 setCategories(response.data);
             } catch (error) {
-                console.error("Error fetching categories:", error);
+                toast.error("Error fetching categories: " + error.message);
             }
         };
 
@@ -45,7 +47,7 @@ const Products = () => {
                 const response = await fetchAllCategories();
                 setCategories(response.data);
             } catch (error) {
-                console.error("Error fetching categories:", error);
+                toast.error("Error fetching categories: " + error.message);
             }
         };
 
@@ -71,7 +73,6 @@ function AddCustomProduct() {
     const [productDescription, setProductDescription] = useState('');
     const [productCategory, setProductCategory] = useState('');
     const [categoryName, setCategoryName] = useState('');
-    const [customProductResponseMessage, setcustomProductResponseMessage] = useState('');
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
@@ -124,8 +125,7 @@ function AddCustomProduct() {
             setProductCategory('');
             setImageList([]);
         } catch (err) {
-            console.error('Error saving product:', err);
-            alert('Failed to save product. Please try again.');
+            toast.error("Failed to save product: " + err.message);
         }
     };
 
@@ -136,25 +136,19 @@ function AddCustomProduct() {
     const addCategoryName = async (e) => {
         e.preventDefault();
         try {
+            if (!categoryName) {
+                toast.error("Can't enter empty category name.");
+                return;
+            }
+
             const categoryNameData = {
                 categoryName: categoryName,
             };
 
             const response = await saveCategoryName(categoryNameData);
-
-            setcustomProductResponseMessage(response.data.message);
-            setTimeout(() => {
-                setcustomProductResponseMessage('');
-            }, 3000);
-
+            toast.success("Category added successfully, message: " + response.data.message);
         } catch (err) {
-            console.error('Error saving gift data:', err);
-
-            setcustomProductResponseMessage('Failed to save gift data');
-            setTimeout(() => {
-                setcustomProductResponseMessage('');
-            }, 3000);
-
+            toast.error("Failed to add category: " + err.message);
         }
     };
 
@@ -219,7 +213,6 @@ function AddCustomProduct() {
             <button className="add-product-btn" onClick={addCategoryName}>
                 Add Category
             </button>
-            {customProductResponseMessage && <p>{customProductResponseMessage}</p>}
             <br />
             <Products />
         </div>
